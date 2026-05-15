@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mistral-awq
+spec:
+  restartPolicy: Never
+  tolerations:
+  - key: sku
+    operator: Equal
+    value: gpu
+    effect: NoSchedule
+  containers:
+  - name: mistral
+    image: pytorch/pytorch:2.1.0-cuda12.1-cudnn8-runtime
+    resources:
+      limits:
+        nvidia.com/gpu: 1
+    command: ["/bin/bash", "-c", "pip install -q 'transformers==4.40.0' 'accelerate==0.29.0' bitsandbytes && python3 /phase4.py"]
+    volumeMounts:
+    - name: script
+      mountPath: /phase4.py
+      subPath: phase4.py
+  volumes:
+  - name: script
+    configMap:
+      name: phase4-script
