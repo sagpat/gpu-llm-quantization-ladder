@@ -503,14 +503,14 @@ Key observation: FBUsed here (~4,200 MiB) vs the FP16 crash (~14,900 MiB). Same 
 
 ### Key conclusions
 
-After filling in the table, you should be able to answer:
+After filling in the table, few questions are answered:
 
 - How much memory does halving precision actually save? (INT8 vs FP16 vs INT4)
+  - FP16 almost consumes 16 GB of memory and the INT8 and INT4 consumes 50% less memeory respectively.
 - Is there a measurable accuracy difference between INT8 and INT4 NF4 on simple questions?
+  - Both were able to answer 4/5 sampling questions correctly.
 - Is AWQ measurably better than NF4 at the same bit-width?
-- What is the practical throughput difference between vLLM and raw HuggingFace at INT4?
-
-> **For LinkedIn posts:** The most impactful numbers to lead with are (1) the memory at the FP16 limit vs memory of the working INT4 model, and (2) the accuracy score at INT4 — because most people assume INT4 degrades quality significantly, and the result surprises them.
+  - Yes, it does.
 
 ---
 
